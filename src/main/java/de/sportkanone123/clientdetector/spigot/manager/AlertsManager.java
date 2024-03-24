@@ -59,6 +59,9 @@ public class AlertsManager {
     }
 
     public static void handleClientDetection(Player player){
+        if (player.getPlayer().hasPermission("clientdetector.bypass")) {
+            return;
+        }
         if(!firstDetection.contains(player.getUniqueId())){
             firstDetection.add(player.getUniqueId());
 
@@ -89,17 +92,22 @@ public class AlertsManager {
                                 if(!ClientDetector.playerClient.get(player.getUniqueId()).equalsIgnoreCase("Vanilla (Undetectable)")){
                                     if(ClientDetector.playerClient.get(player.getUniqueId()) != null && ClientDetector.clientVersion.get(player.getUniqueId()) == null) {
                                         player1.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getConfig("message").getString("detection.clientdetectionmessagewithoutversion").replace("%prefix%", ConfigManager.getConfig("message").getString("prefix")).replace("%player_name%", player.getName()).replace("%player_uuid%", player.getUniqueId().toString()).replace("%client_name%", ClientDetector.playerClient.get(player.getUniqueId()))));
+                                        Bukkit.getLogger().info(ChatColor.translateAlternateColorCodes('&', ConfigManager.getConfig("message").getString("detection.clientdetectionmessagewithoutversion").replace("%prefix%", ConfigManager.getConfig("message").getString("prefix")).replace("%player_name%", player.getName()).replace("%player_uuid%", player.getUniqueId().toString()).replace("%client_name%", ClientDetector.playerClient.get(player.getUniqueId()))));
                                     }else if(ClientDetector.playerClient.get(player.getUniqueId()) != null && ClientDetector.clientVersion.get(player.getUniqueId()) != null) {
                                         player1.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getConfig("message").getString("detection.clientdetectionmessagewithversion").replace("%prefix%", ConfigManager.getConfig("message").getString("prefix")).replace("%player_name%", player.getName()).replace("%player_uuid%", player.getUniqueId().toString()).replace("%client_name%", ClientDetector.playerClient.get(player.getUniqueId())).replace("%client_version%", ClientDetector.clientVersion.get(player.getUniqueId()))));
+                                        Bukkit.getLogger().info(ChatColor.translateAlternateColorCodes('&', ConfigManager.getConfig("message").getString("detection.clientdetectionmessagewithversion").replace("%prefix%", ConfigManager.getConfig("message").getString("prefix")).replace("%player_name%", player.getName()).replace("%player_uuid%", player.getUniqueId().toString()).replace("%client_name%", ClientDetector.playerClient.get(player.getUniqueId())).replace("%client_version%", ClientDetector.clientVersion.get(player.getUniqueId()))));
                                     }
                                 }
                             }else{
                                 if(ClientDetector.playerClient.get(player.getUniqueId()) != null && ClientDetector.clientVersion.get(player.getUniqueId()) == null) {
                                     player1.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getConfig("message").getString("detection.clientdetectionmessagewithoutversion").replace("%prefix%", ConfigManager.getConfig("message").getString("prefix")).replace("%player_name%", player.getName()).replace("%player_uuid%", player.getUniqueId().toString()).replace("%client_name%", ClientDetector.playerClient.get(player.getUniqueId()))));
+                                    Bukkit.getLogger().info(ChatColor.translateAlternateColorCodes('&', ConfigManager.getConfig("message").getString("detection.clientdetectionmessagewithoutversion").replace("%prefix%", ConfigManager.getConfig("message").getString("prefix")).replace("%player_name%", player.getName()).replace("%player_uuid%", player.getUniqueId().toString()).replace("%client_name%", ClientDetector.playerClient.get(player.getUniqueId()))));
                                 }else if(ClientDetector.playerClient.get(player.getUniqueId()) != null && ClientDetector.clientVersion.get(player.getUniqueId()) != null) {
                                     player1.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getConfig("message").getString("detection.clientdetectionmessagewithversion").replace("%prefix%", ConfigManager.getConfig("message").getString("prefix")).replace("%player_name%", player.getName()).replace("%player_uuid%", player.getUniqueId().toString()).replace("%client_name%", ClientDetector.playerClient.get(player.getUniqueId())).replace("%client_version%", ClientDetector.clientVersion.get(player.getUniqueId()))));
+                                    Bukkit.getLogger().info(ChatColor.translateAlternateColorCodes('&', ConfigManager.getConfig("message").getString("detection.clientdetectionmessagewithversion").replace("%prefix%", ConfigManager.getConfig("message").getString("prefix")).replace("%player_name%", player.getName()).replace("%player_uuid%", player.getUniqueId().toString()).replace("%client_name%", ClientDetector.playerClient.get(player.getUniqueId())).replace("%client_version%", ClientDetector.clientVersion.get(player.getUniqueId()))));
                                 }else{
                                     player1.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigManager.getConfig("message").getString("detection.clientdetectionmessagewithoutversion").replace("%prefix%", ConfigManager.getConfig("message").getString("prefix")).replace("%player_name%", player.getName()).replace("%player_uuid%", player.getUniqueId().toString()).replace("%client_name%", "Vanilla (Undetectable)")));
+                                    Bukkit.getLogger().info(ChatColor.translateAlternateColorCodes('&', ConfigManager.getConfig("message").getString("detection.clientdetectionmessagewithoutversion").replace("%prefix%", ConfigManager.getConfig("message").getString("prefix")).replace("%player_name%", player.getName()).replace("%player_uuid%", player.getUniqueId().toString()).replace("%client_name%", "Vanilla (Undetectable)")));
                                 }
                             }
                         }
@@ -118,6 +126,9 @@ public class AlertsManager {
     }
 
     public static void handleModlistDetection(Player player, String modName){
+        if (player.getPlayer().hasPermission("clientdetector.bypass")) {
+            return;
+        }
         if(modWarningList.contains(modName) && ConfigManager.getConfig("config").getBoolean("alerts.enableNotifications")){
             for(Player player1 : Bukkit.getOnlinePlayers()) {
                 if (!disabledNotifications.contains(player1.getName()) && player1.hasPermission(ConfigManager.getConfig("config").getString("alerts.notificationPermission"))) {
@@ -129,6 +140,9 @@ public class AlertsManager {
     }
 
     public static void handleGeyserDetection(Player player){
+        if (player.getPlayer().hasPermission("clientdetector.bypass")) {
+            return;
+        }
         if(ConfigManager.getConfig("config").getBoolean("alerts.enableNotifications")){
             for(Player player1 : Bukkit.getOnlinePlayers()) {
                 if (!limitedNotifications && !disabledNotifications.contains(player1) && player1.hasPermission(ConfigManager.getConfig("config").getString("alerts.notificationPermission"))) {
@@ -140,6 +154,9 @@ public class AlertsManager {
     }
 
     public static void sendCrossServer(Player player, String message){
+        if (player.getPlayer().hasPermission("clientdetector.bypass")) {
+            return;
+        }
         if(ClientDetector.bungeeManager != null && crossServerNotifications && ConfigManager.getConfig("config").getBoolean("bungee.enableBungeeClient")){
             ClientDetector.bungeeManager.syncList(DataType.CROSS_SERVER_MESSAGE, message);
         }
